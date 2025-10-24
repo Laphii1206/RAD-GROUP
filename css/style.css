@@ -5,5 +5,59 @@
 }
 
 nav {
-    font-family: var(--font-main) !important;
+  font-family: var(--font-main);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+.navTop {
+  background-color: black;
+  padding: 0.85rem;
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 3rem;
+}
+
+.navTop>a {
+  font-size: 1.20rem;
+  font-weight: bolder;
+  color: #ffc107;
+  text-decoration: none;
+
+}
+
+.navTop ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  font-family: var(--font-main);
+
+}
+
+.navTop ul li a {
+  color: #f8f9fa;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navTop ul li a:hover {
+  color: #adb5bd;
+}
+
+.navTop ul li a.active {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.preorder-cover {
+  margin-top: 3rem; 
+  padding: 5rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.568);
+  color: white;
 }
