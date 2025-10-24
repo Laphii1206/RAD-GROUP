@@ -6,10 +6,9 @@
 
 nav {
   font-family: var(--font-main);
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100%;
-  z-index: 1030;
+  overflow: hidden;
 }
 
 .navTop {
@@ -55,7 +54,6 @@ nav {
 }
 
 .preorder-cover {
-  margin-top: 3rem; 
   padding: 5rem;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.568);
