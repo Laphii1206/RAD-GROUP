@@ -4,8 +4,11 @@
   --font-main: 'Roboto', sans-serif;
 }
 
-nav {
+body {
   font-family: var(--font-main);
+}
+
+nav {
   position: sticky;
   top: 0;
   overflow: hidden;
@@ -22,7 +25,7 @@ nav {
   padding-left: 3rem;
 }
 
-.navTop>a {
+.navTop > a {
   font-size: 1.20rem;
   font-weight: bolder;
   color: white;
