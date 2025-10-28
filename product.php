@@ -2,7 +2,7 @@
 $conn = new mysqli("localhost", "laphii", "laphii123", "wks");
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 
 // Fetch products from the database
@@ -50,13 +50,15 @@ $result = $conn->query($sql);
   <br>
 
   <div class="card-group" style="width: 18rem;">
-   <?php if ($result->num_rows > 0): ?>
+    <?php if ($result->num_rows > 0): ?>
       <?php while ($row = $result->fetch_assoc()): ?>
         <div class="card" style="width: 18rem;">
-          <img src="./images/<?php echo htmlspecialchars($row['product_image']); ?>" class="card-img-top" alt="Product Image">
+          <img src="data:image/jpeg;base64,<?php echo base64_encode($row['product_image']); ?>" class="card-img-top"
+            alt="<?php echo htmlspecialchars($row['product_name']); ?>">
           <div class="card-body">
             <h4 class="card-title text-center"><?php echo htmlspecialchars($row['product_name']); ?></h4>
-            <p class="card-text text-center">Size: <?php echo htmlspecialchars($row['product_weight']); ?> Price: RM<?php echo htmlspecialchars($row['product_price']); ?></p>
+            <p class="card-text text-center">Size: <?php echo htmlspecialchars($row['product_weight']); ?> Price:
+              RM<?php echo htmlspecialchars($row['product_price']); ?></p>
           </div>
         </div>
       <?php endwhile; ?>
@@ -65,7 +67,7 @@ $result = $conn->query($sql);
     <?php endif; ?>
     <?php $conn->close(); ?>
   </div>
-</div>
+  </div>
 
 
 </body>
