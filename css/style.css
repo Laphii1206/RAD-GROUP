@@ -93,12 +93,11 @@ nav {
   color: black;
   border: solid white 1px;
   padding: 2rem;
-  font-weight: bold;
   background-color: gray;
 }
 
 .login-form {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 56px);
   width: 100%;
   display: flex;
   justify-content: center;
