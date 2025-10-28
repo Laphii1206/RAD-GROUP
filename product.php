@@ -1,3 +1,18 @@
+<?php
+$conn = new mysqli("localhost", "laphii", "laphii123", "wks");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch products from the database
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +35,7 @@
     <a href="index.html">WongKokSeng Wholesale</a>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="product.html" class="active ">Product</a></li>
+      <li><a href="product.php" class="active ">Product</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="preorder.html">Preorder</a></li>
     </ul>
@@ -35,13 +50,20 @@
   <br>
 
   <div class="card-group" style="width: 18rem;">
-    <div class="card">
-      <img src="./images/bok-choy.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h4 class="card-title text-center">Bok-choy</h4>
-        <p class="card-text">faking bok-choy</p>
-        <p class="card-text text-center">Size: 300G Price: RM2.00</p>
-    <p class="card-text text-center">Size: 500G Price: RM3.00</p>
+   <?php if ($result->num_rows > 0): ?>
+      <?php while ($row = $result->fetch_assoc()): ?>
+        <div class="card" style="width: 18rem;">
+          <img src="./images/<?php echo htmlspecialchars($row['product_image']); ?>" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h4 class="card-title text-center"><?php echo htmlspecialchars($row['product_name']); ?></h4>
+            <p class="card-text text-center">Size: <?php echo htmlspecialchars($row['product_weight']); ?> Price: RM<?php echo htmlspecialchars($row['product_price']); ?></p>
+          </div>
+        </div>
+      <?php endwhile; ?>
+    <?php else: ?>
+      <p class="text-center">No products available.</p>
+    <?php endif; ?>
+    <?php $conn->close(); ?>
   </div>
 </div>
 
