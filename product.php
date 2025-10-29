@@ -49,26 +49,24 @@ $result = $conn->query($sql);
   </article>
   <br>
 
-  <div class="card-group" style="width: 18rem;">
-    <?php if ($result->num_rows > 0): ?>
-      <?php while ($row = $result->fetch_assoc()): ?>
-        <div class="card" style="width: 18rem;">
-          <img src="data:image/jpeg;base64,<?php echo base64_encode($row['product_image']); ?>" class="card-img-top"
-            alt="<?php echo htmlspecialchars($row['product_name']); ?>">
-          <div class="card-body">
-            <h4 class="card-title text-center"><?php echo htmlspecialchars($row['product_name']); ?></h4>
-            <p class="card-text text-center">Size: <?php echo htmlspecialchars($row['product_weight']); ?> Price:
-              RM<?php echo htmlspecialchars($row['product_price']); ?></p>
-          </div>
-        </div>
-      <?php endwhile; ?>
-    <?php else: ?>
-      <p class="text-center">No products available.</p>
-    <?php endif; ?>
-    <?php $conn->close(); ?>
-  </div>
-  </div>
-
+<?php
+<div class="card-group" style="width: 18rem;">
+  <?php
+  if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          echo '<div class="card" style="width: 18rem;">';
+          echo '<img src="data:image/jpeg;base64,' . base64_encode($row['product_image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['product_name']) . '">';
+          echo '<div class="card-body">';
+          echo '<h4 class="card-title text-center">' . htmlspecialchars($row['product_name']) . '</h4>';
+          echo '<p class="card-text text-center">Size: ' . htmlspecialchars($row['product_weight']) . ' Price: RM' . htmlspecialchars($row['product_price']) . '</p>';
+          echo '</div>';
+          echo '</div>';
+      }
+  } else {
+      echo '<p class="text-center">No products available.</p>';
+  }
+  ?>
+</div>
 
 </body>
 

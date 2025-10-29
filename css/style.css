@@ -109,3 +109,13 @@ nav {
   padding: 5rem;
   box-sizing: border-box;
 }
+
+.card-group {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 1rem;      
+  justify-content: flex-start;
+}
+.card-group .card {
+  flex: 0 0 18rem;
+}
