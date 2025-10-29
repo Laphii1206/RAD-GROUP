@@ -1,15 +1,9 @@
 <?php
-$conn = new mysqli("localhost", "laphii", "laphii123", "wks");
+include 'db_connect.php';
+session_start();
 
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch products from the database
 $sql = "SELECT * FROM product";
 $result = $conn->query($sql);
-
-
 
 ?>
 
@@ -31,15 +25,32 @@ $result = $conn->query($sql);
 
 
 <body>
-  <nav class="navTop">
-    <a href="index.html">WongKokSeng Wholesale</a>
+    <nav class="navTop">
+    <a href="index.php">WongKokSeng Wholesale</a>
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.php" class="active ">Product</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="preorder.html">Preorder</a></li>
+      <li><a href="index.php" >Home</a></li>
+      <li><a href="product.php" class="active">Product</a></li>
+      <li><a href="contact.php">Contact</a></li>
+      <li><a href="preorder.php">Preorder</a></li>
+      <li><a href="adminPanel.php">Admin</a></li>
     </ul>
-    <a class="login" href="login.html">Login / Register</a>
+     <?php if (isset($_SESSION['username'])): ?>
+      <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>
+      <a class="logout" href="logout.php">Logout</a>
+    <?php else: ?>
+      <a class="login" href="login.php">Login / Register</a>
+    <?php endif; ?>
+  </nav>
+
+  <?php if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
+        <?php
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); 
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+  <?php endif; ?>
 
   </nav>
 
@@ -49,25 +60,25 @@ $result = $conn->query($sql);
   </article>
   <br>
 
-<?php
-<div class="card-group" style="width: 18rem;">
-  <?php
-  if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-          echo '<div class="card" style="width: 18rem;">';
-          echo '<img src="data:image/jpeg;base64,' . base64_encode($row['product_image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['product_name']) . '">';
-          echo '<div class="card-body">';
-          echo '<h4 class="card-title text-center">' . htmlspecialchars($row['product_name']) . '</h4>';
-          echo '<p class="card-text text-center">Size: ' . htmlspecialchars($row['product_weight']) . ' Price: RM' . htmlspecialchars($row['product_price']) . '</p>';
-          echo '</div>';
-          echo '</div>';
-      }
-  } else {
-      echo '<p class="text-center">No products available.</p>';
-  }
-  ?>
-</div>
-
+  <div class="container">
+    <?php
+    if ($result->num_rows > 0) {
+        echo '<div class="card-group" style="padding-left: 5rem;">';
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="card" style="width: 18rem; margin: 1rem;">';
+            echo '<img src="images/' . $row['product_image'] . '" class="card-img-top img-thumbnail" alt="' . $row['product_name'] . '">';
+            echo '<div class="card-body">';
+            echo '<h4 class="card-title text-center">' . $row['product_name'] . '</h4>';
+            echo '<p class="card-text text-center">Weight: ' . $row['product_weight'] . 'g Price: RM' . $row['product_price'] . '</p>';
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
+    } else {
+        echo '<p class="text-center">No products available.</p>';
+    }
+    ?>
+  </div>
 </body>
 
 </html>
