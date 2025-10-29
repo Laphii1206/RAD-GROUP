@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include __DIR__ . '/../auth/db_connect.php';
 
 // Handle form submission for adding a product
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

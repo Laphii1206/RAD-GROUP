@@ -1,6 +1,6 @@
 <?php
 include 'db_connect.php';
-session_start(); // Start the session to store messages
+session_start(); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO user (username, phone_number, password) VALUES ('$username', '$phone', '$hashedPassword')";
         if ($conn->query($sql) === TRUE) {
             $_SESSION['message'] = "Registration successful!";
-            $_SESSION['message_type'] = "success"; // Store message type for styling
+            $_SESSION['message_type'] = "success"; 
         } else {
             $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
             $_SESSION['message_type'] = "error";
@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['message_type'] = "error";
     }
 
-    // Redirect to the same page to refresh
     header("Location: register.php");
     exit();
 }

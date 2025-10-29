@@ -22,9 +22,9 @@ session_start();
 
 <body>
   <nav class="navTop">
-    <a href="index.php">WongKokSeng Wholesale</a>
+    <a href="../index.php">WongKokSeng Wholesale</a>
     <ul>
-      <li><a href="index.php" >Home</a></li>
+      <li><a href="../index.php" >Home</a></li>
       <li><a href="product.php">Product</a></li>
       <li><a href="contact.php">Contact</a></li>
       <li><a href="preorder.php" class="active">Preorder</a></li>

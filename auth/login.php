@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
         <?php
         echo $_SESSION['message'];
-        unset($_SESSION['message']); // Clear the message after displaying
+        unset($_SESSION['message']);
         unset($_SESSION['message_type']);
         ?>
     </div>
