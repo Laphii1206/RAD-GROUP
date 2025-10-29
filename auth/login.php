@@ -1,31 +1,33 @@
 <?php
 include 'db_connect.php';
-session_start(); // Start the session to store messages
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
-    $phone = $_POST['phone'];
     $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
 
-    if ($password === $confirmPassword) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "SELECT * FROM user WHERE username = '$username'";
+    $result = $conn->query($sql);
 
-        $sql = "INSERT INTO user (username, phone_number, password) VALUES ('$username', '$phone', '$hashedPassword')";
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['message'] = "Registration successful!";
-            $_SESSION['message_type'] = "success"; // Store message type for styling
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['message'] = "Login successful!";
+            $_SESSION['message_type'] = "success";
+            header("Location: index.php");
+            exit();
         } else {
-            $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
+            $_SESSION['message'] = "Invalid password.";
             $_SESSION['message_type'] = "error";
         }
     } else {
-        $_SESSION['message'] = "Passwords do not match.";
+        $_SESSION['message'] = "No user found with that username.";
         $_SESSION['message_type'] = "error";
     }
 
-    // Redirect to the same page to refresh
-    header("Location: register.php");
+    header("Location: login.php");
     exit();
 }
 ?>
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>WongKokSeng Wholesale</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
@@ -48,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
   <nav class="navTop">
-    <a href="index.php">WongKokSeng Wholesale</a>
+    <a href="../index.php">WongKokSeng Wholesale</a>
     <ul>
-      <li><a href="index.php" class="active">Home</a></li>
-      <li><a href="product.php">Product</a></li>
-      <li><a href="contact.php">Contact</a></li>
-      <li><a href="preorder.php">Preorder</a></li>
-      <li><a href="adminPanel.php">Admin</a></li>
+      <li><a href="../index.php">Home</a></li>
+      <li><a href="../pages/product.php">Product</a></li>
+      <li><a href="../pages/contact.php">Contact</a></li>
+      <li><a href="../pages/preorder.php">Preorder</a></li>
+      <li><a href="../admin/adminPanel.php">Admin</a></li>
     </ul>
-    <a class="login" href="login.php">Login / Register</a>
+    <a class="login-active" href="../auth/login.php">Login / Register</a>
   </nav>
 
   <!-- Display Message -->
@@ -70,18 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   <?php endif; ?>
 
-  <form class="login-form" action="register.php" method="POST">
+  <form class="login-form" method="POST" action="login.php">
       <div class="login-container">
           <a>Username</a>
           <input type="text" name="username" placeholder="Username" required>
-          <a>Phone Number</a>
-          <input type="text" name="phone" placeholder="Phone Number" required>
           <a>Password</a>
           <input type="password" name="password" placeholder="Password" required>
-          <a>Confirm Password</a>
-          <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-          <button type="submit">Register</button>
-          <a>Already have an account? <a href="login.php">Login Here</a></a>
+          <button type="submit">Login</button>
+          <a>Haven't signed in? <a href="register.php">Register Here</a></a>
       </div>
   </form>
 </body>

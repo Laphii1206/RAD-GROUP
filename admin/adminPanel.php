@@ -43,7 +43,7 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <a href="index.php">WongKokSeng Wholesale</a>
+    <a href="../index.php">WongKokSeng Wholesale</a>
     <div class="container mt-5">
         <h1>Manage Products</h1>
 
