@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $row['username'];
             $_SESSION['message'] = "Login successful!";
             $_SESSION['message_type'] = "success";
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             $_SESSION['message'] = "Invalid password.";

@@ -1,14 +1,15 @@
 <?php
 include __DIR__ . '/../auth/db_connect.php';
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
 
-// Handle form submission for adding a product
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = $_POST['product_name'];
     $productWeight = $_POST['product_weight'];
     $productPrice = $_POST['product_price'];
     $productImage = $_FILES['product_image']['name'];
 
-    $targetDir = "images/";
+    $targetDir = __DIR__ . "../images/";
     $targetFile = $targetDir . basename($productImage);
     move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile);
 
@@ -19,19 +20,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-if (isset($_GET['id'])) {
-    $productId = $_GET['id'];
 
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if (isset($_GET['id']) && isset($_GET['action'])) {
+    $productId = $_GET['id'];
+    $action = $_GET['action'];
+
+    if ($action === 'delete') {
+
+        $sql = "SELECT product_image FROM product WHERE product_id = $productId";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $imageFile = $row['product_image'];
+
+        $imagePath = __DIR__ . "/images/" . $imageFile;
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
         $sql = "DELETE FROM product WHERE product_id = $productId";
         $conn->query($sql);
-        header("Location: adminPanel.php");
+        
+        exit();
     }
 }
 
 
-$sql = "SELECT * FROM product";
-$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +61,6 @@ $result = $conn->query($sql);
     <div class="container mt-5">
         <h1>Manage Products</h1>
 
-        <!-- Form to Add Product -->
         <form action="adminPanel.php" method="POST" enctype="multipart/form-data" class="mb-4">
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
@@ -68,7 +81,6 @@ $result = $conn->query($sql);
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
 
-        <!-- Product List -->
         <h2>Product List</h2>
         <table class="table table-bordered">
             <thead>
@@ -84,14 +96,14 @@ $result = $conn->query($sql);
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= htmlspecialchars($row['product_id']) ?></td>
-                        <td><?= htmlspecialchars($row['product_name']) ?></td>
-                        <td><?= htmlspecialchars($row['product_weight']) ?></td>
-                        <td>RM<?= htmlspecialchars($row['product_price']) ?></td>
-                        <td><img src="images/<?= htmlspecialchars($row['product_image']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" style="width: 100px;"></td>
+                        <td><?= ($row['product_id']) ?></td>
+                        <td><?= ($row['product_name']) ?></td>
+                        <td><?= ($row['product_weight']) ?></td>
+                        <td>RM<?= ($row['product_price']) ?></td>
+                        <td><img src="images/<?= ($row['product_image']) ?>" alt="<?= ($row['product_name']) ?>" style="width: 100px;"></td>
                         <td>
-                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>&action=edit" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>&action=delete" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

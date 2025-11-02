@@ -28,7 +28,7 @@ session_start();
       <li><a href="product.php">Product</a></li>
       <li><a href="contact.php" class="active">Contact</a></li>
       <li><a href="preorder.php">Preorder</a></li>
-      <li><a href="adminPanel.php">Admin</a></li>
+      <li><a href="../admin/adminPanel.php">Admin</a></li>
     </ul>
      <?php if (isset($_SESSION['username'])): ?>
       <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>
