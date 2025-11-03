@@ -16,11 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $row['username'];
             $_SESSION['message'] = "Login successful!";
             $_SESSION['message_type'] = "success";
-<<<<<<< Updated upstream
             header("Location: ../index.php");
-=======
-            header("Location: index.php");
->>>>>>> Stashed changes
             exit();
         } else {
             $_SESSION['message'] = "Invalid password.";
@@ -70,11 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
         <?php
         echo $_SESSION['message'];
-<<<<<<< Updated upstream
         unset($_SESSION['message']);
-=======
-        unset($_SESSION['message']); // Clear the message after displaying
->>>>>>> Stashed changes
         unset($_SESSION['message_type']);
         ?>
     </div>

@@ -1,24 +1,8 @@
 <?php
 include __DIR__ . '/auth/db_connect.php';
 session_start();
-<<<<<<< Updated upstream
 ?>
 
-=======
-
-if (isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    $sql = "SELECT * FROM user WHERE id = '$userId'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-    }
-}
-
-?>
-
-
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,22 +37,6 @@ if (isset($_SESSION['user_id'])) {
       <a class="login" href="auth/login.php">Login / Register</a>
     <?php endif; ?>
   </nav>
-<<<<<<< Updated upstream
-=======
-
-  <?php if (isset($_SESSION['message'])): ?>
-    <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
-        <?php
-        echo $_SESSION['message'];
-        unset($_SESSION['message']); 
-        unset($_SESSION['message_type']);
-        ?>
-    </div>
-  <?php endif; ?>
-
-  </nav>
-
->>>>>>> Stashed changes
 </body>
 
 </html>
