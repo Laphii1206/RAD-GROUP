@@ -9,22 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productPrice = $_POST['product_price'];
     $productImage = $_FILES['product_image']['name'];
 
-    $targetDir = "../images/";
+    $targetDir = __DIR__ . "../images/";
     $targetFile = $targetDir . basename($productImage);
-
-
-
     move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile);
 
     $sql = "INSERT INTO product (product_name, product_weight, product_price, product_image) 
             VALUES ('$productName', '$productWeight', '$productPrice', '$productImage')";
     $conn->query($sql);
-    header("Location: adminPanel.php");
+            header("Location: adminPanel.php");
 
 }
 
-if (isset($_GET['product_id']) && isset($_GET['action'])) {
-    $productId = $_GET['product_id'];
+
+if (isset($_GET['id']) && isset($_GET['action'])) {
+    $productId = $_GET['id'];
     $action = $_GET['action'];
 
     if ($action === 'delete') {
@@ -34,15 +32,14 @@ if (isset($_GET['product_id']) && isset($_GET['action'])) {
         $row = $result->fetch_assoc();
         $imageFile = $row['product_image'];
 
-        $imagePath = "../images/" . $imageFile;
+        $imagePath = __DIR__ . "/images/" . $imageFile;
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
 
         $sql = "DELETE FROM product WHERE product_id = $productId";
         $conn->query($sql);
-        header("Location: adminPanel.php");
-
+        
         exit();
     }
 }
@@ -102,13 +99,10 @@ if (isset($_GET['product_id']) && isset($_GET['action'])) {
                         <td><?= ($row['product_name']) ?></td>
                         <td><?= ($row['product_weight']) ?></td>
                         <td>RM<?= ($row['product_price']) ?></td>
-                        <td><img src="../images/<?= ($row['product_image']) ?>" alt="<?= ($row['product_name']) ?>"
-                                style="width: 100px;"></td>
+                        <td><img src="images/<?= ($row['product_image']) ?>" alt="<?= ($row['product_name']) ?>" style="width: 100px;"></td>
                         <td>
-                            <a href="adminPanel.php?product_id=<?= $row['product_id'] ?>&action=edit"
-                                class="btn btn-warning btn-sm">Edit</a>
-                            <a href="adminPanel.php?product_id=<?= $row['product_id'] ?>&action=delete"
-                                class="btn btn-danger btn-sm">Delete</a>
+                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>&action=edit" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="adminPanel.php?id=<?= $row['product_id'] ?>&action=delete" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
