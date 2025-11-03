@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/auth/db_connect.php';
+include 'db_connect.php';
 session_start();
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];

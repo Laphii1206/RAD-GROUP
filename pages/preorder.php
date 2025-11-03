@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../auth/db_connect.php';
+include '/../auth/db_connect.php';
 session_start();
 ?>
 
@@ -21,8 +21,6 @@ session_start();
 
 
 <body>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:pages/preorder.php
   <nav class="navTop">
     <a href="../index.php">WongKokSeng Wholesale</a>
     <ul>
@@ -31,27 +29,7 @@ session_start();
       <li><a href="contact.php">Contact</a></li>
       <li><a href="preorder.php" class="active">Preorder</a></li>
       <li><a href="../admin/adminPanel.php">Admin</a></li>
-========
-    <nav class="navTop">
-    <a href="index.php">WongKokSeng Wholesale</a>
-    <ul>
-      <li><a href="../index.php" >Home</a></li>
-      <li><a href="product.php">Product</a></li>
-      <li><a href="contact.php" class="active">Contact</a></li>
-      <li><a href="preorder.php">Preorder</a></li>
-      <li><a href="adminPanel.php">Admin</a></li>
->>>>>>>> Stashed changes:pages/contact.php
-=======
-  <nav class="navTop">
-    <a href="index.php">WongKokSeng Wholesale</a>
-    <ul>
-      <li><a href="index.php" >Home</a></li>
-      <li><a href="product.php">Product</a></li>
-      <li><a href="contact.php">Contact</a></li>
-      <li><a href="preorder.php" class="active">Preorder</a></li>
-      <li><a href="adminPanel.php">Admin</a></li>
->>>>>>> Stashed changes
-    </ul>
+
      <?php if (isset($_SESSION['username'])): ?>
       <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>
       <a class="logout" href="../auth/logout.php">Logout</a>
@@ -59,22 +37,7 @@ session_start();
       <a class="login" href="../auth/login.php">Login / Register</a>
     <?php endif; ?>
   </nav>
-<<<<<<< Updated upstream
-=======
 
-  <?php if (isset($_SESSION['message'])): ?>
-    <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
-        <?php
-        echo $_SESSION['message'];
-        unset($_SESSION['message']); 
-        unset($_SESSION['message_type']);
-        ?>
-    </div>
-  <?php endif; ?>
-
-  </nav>
-
->>>>>>> Stashed changes
 </body>
 
 </html>
