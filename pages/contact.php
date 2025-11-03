@@ -21,6 +21,19 @@ session_start();
 
 
 <body>
+<<<<<<< Updated upstream
+=======
+<<<<<<<< Updated upstream:pages/preorder.php
+  <nav class="navTop">
+    <a href="../index.php">WongKokSeng Wholesale</a>
+    <ul>
+      <li><a href="../index.php" >Home</a></li>
+      <li><a href="product.php">Product</a></li>
+      <li><a href="contact.php">Contact</a></li>
+      <li><a href="preorder.php" class="active">Preorder</a></li>
+      <li><a href="../admin/adminPanel.php">Admin</a></li>
+========
+>>>>>>> Stashed changes
     <nav class="navTop">
     <a href="index.php">WongKokSeng Wholesale</a>
     <ul>
@@ -28,7 +41,12 @@ session_start();
       <li><a href="product.php">Product</a></li>
       <li><a href="contact.php" class="active">Contact</a></li>
       <li><a href="preorder.php">Preorder</a></li>
+<<<<<<< Updated upstream
       <li><a href="../admin/adminPanel.php">Admin</a></li>
+=======
+      <li><a href="adminPanel.php">Admin</a></li>
+>>>>>>>> Stashed changes:pages/contact.php
+>>>>>>> Stashed changes
     </ul>
      <?php if (isset($_SESSION['username'])): ?>
       <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>

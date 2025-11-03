@@ -1,6 +1,10 @@
 <?php
 include 'db_connect.php';
+<<<<<<< Updated upstream
 session_start(); 
+=======
+session_start(); // Start the session to store messages
+>>>>>>> Stashed changes
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -14,7 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO user (username, phone_number, password) VALUES ('$username', '$phone', '$hashedPassword')";
         if ($conn->query($sql) === TRUE) {
             $_SESSION['message'] = "Registration successful!";
+<<<<<<< Updated upstream
             $_SESSION['message_type'] = "success"; 
+=======
+            $_SESSION['message_type'] = "success"; // Store message type for styling
+>>>>>>> Stashed changes
         } else {
             $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
             $_SESSION['message_type'] = "error";
@@ -24,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['message_type'] = "error";
     }
 
+<<<<<<< Updated upstream
+=======
+    // Redirect to the same page to refresh
+>>>>>>> Stashed changes
     header("Location: register.php");
     exit();
 }

@@ -32,7 +32,11 @@ $result = $conn->query($sql);
       <li><a href="product.php" class="active">Product</a></li>
       <li><a href="contact.php">Contact</a></li>
       <li><a href="preorder.php">Preorder</a></li>
+<<<<<<< Updated upstream
       <li><a href="../admin/adminPanel.php">Admin</a></li>
+=======
+      <li><a href="adminPanel.php">Admin</a></li>
+>>>>>>> Stashed changes
     </ul>
      <?php if (isset($_SESSION['username'])): ?>
       <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>
@@ -42,6 +46,21 @@ $result = $conn->query($sql);
     <?php endif; ?>
   </nav>
 
+<<<<<<< Updated upstream
+=======
+  <?php if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?php echo $_SESSION['message_type'] === 'success' ? 'success' : 'danger'; ?> text-center">
+        <?php
+        echo $_SESSION['message'];
+        unset($_SESSION['message']); 
+        unset($_SESSION['message_type']);
+        ?>
+    </div>
+  <?php endif; ?>
+
+  </nav>
+
+>>>>>>> Stashed changes
   <article class="preorder-cover">
     <h1>Preorder Products</h1>
     <p>Explore our exclusive range of products available for preorder.</p>
