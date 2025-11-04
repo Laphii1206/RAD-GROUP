@@ -1,5 +1,5 @@
 <?php
-include  '/../auth/db_connect.php';
+include  '../auth/db_connect.php';
 session_start();
 ?>
 
@@ -26,8 +26,8 @@ session_start();
     <ul>
       <li><a href="../index.php">Home</a></li>
       <li><a href="product.php">Product</a></li>
-      <li><a href="contact.php">Contact</a></li>
-      <li><a href="preorder.php" class="active">Preorder</a></li>
+      <li><a href="contact.php" class="active">Contact</a></li>
+      <li><a href="preorder.php">Preorder</a></li>
       <li><a href="../admin/adminPanel.php">Admin</a></li>
     </ul>
      <?php if (isset($_SESSION['username'])): ?>
