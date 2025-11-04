@@ -37,6 +37,7 @@ nav {
   align-items: center;
   justify-content: start;
   padding-left: 3rem;
+  z-index:1000;
 }
 
 .navTop>a {
@@ -142,4 +143,90 @@ nav {
   height: 200px;
   object-fit: cover;
 }
+
+  .contact-container {
+    width: 100%;
+    height: auto;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background: url('../images/warehouse.jpg');
+    background-size: cover;
+  }
+
+  .contact-header {
+    text-align: center;
+    background: linear-gradient(to right, #23013a, #380202);
+    padding: 30px;
+    max-width: 100%;
+    color: #ffffff;
+  }
+
+  .contact-formbox {
+    padding: 50px;
+    display: flex;
+    width: 100%;
+    justify-items: center;
+    height: 800px;
+    position: relative;
+  }
+
+  .contact-form {
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 30%;
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    top: 9%;
+  }
+
+  .contact-container ul {
+    list-style-type: disc;
+    color: white;
+  }
+
+  .contact-container li {
+    margin: 50px;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .contact-info {
+    padding: 20px;
+    background: linear-gradient(to right, #23013a, #380202);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .contact-form-welcome-message-box {
+    color: white;
+    margin-right: 20px;
+    background-color: rgb(48, 19, 19);
+    border: black 2px solid;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    height: 700px;
+    position: absolute;
+    left: 20%;
+  }
+
+  .contact-form-welcome-message {
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin-top: 20%;
+  }
 
