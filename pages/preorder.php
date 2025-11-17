@@ -21,22 +21,49 @@ session_start();
 
 
 <body>
-  <nav class="navTop">
-    <a href="../index.php">WongKokSeng Wholesale</a>
-    <ul>
-      <li><a href="../index.php">Home</a></li>
-      <li><a href="product.php">Product</a></li>
-      <li><a href="contact.php">Contact</a></li>
-      <li><a href="preorder.php" class="active">Preorder</a></li>
-      <li><a href="../admin/adminPanel.php">Admin</a></li>
-    </ul>
-    <?php if (isset($_SESSION['username'])): ?>
-      <span class="welcome-message">Welcome, <?php echo $_SESSION['username']; ?>!</span>
-      <a class="logout" href="../auth/logout.php">Logout</a>
-    <?php else: ?>
-      <a class="login" href="../auth/login.php">Login / Register</a>
-    <?php endif; ?>
-  </nav>
+   <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
+    <div class="container-fluid">
+      <a class="navbar-brand custom-nav-text" href="../index.php">WongKokSeng Wholesale</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+          <li class="nav-item">
+            <a class="nav-link custom-nav-text" href="../index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-nav-text" href="product.php">Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-nav-text" href="contact.php">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-nav-text-active" href="preorder.php">Preorder</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <?php if (isset($_SESSION['username'])): ?>
+            <div class="dropdown">
+              <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome, <?php echo $_SESSION['username']; ?>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="show_order.php">Show Order</a></li>
+                <li><a class="dropdown-item" href="../auth/logout.php">Logout</a></li>
+              </ul>
+            </div>
+          <?php else: ?>
+            <a class="btn btn-outline-primary mx-2" href="../auth/login.php">Login</a>
+            <a class="btn btn-outline-primary" href="../auth/register.php">Sign-Up</a>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </header>
 </body>
 
 </html>
