@@ -24,42 +24,6 @@ if (isset($_SESSION['cart'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    /* Make the burger icon white */
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    }
-
-    /* Adjust dropdown menu for mobile */
-    .dropdown-menu {
-      width: 100%; /* Full width on mobile */
-    }
-
-    /* Ensure navbar items stack properly on mobile */
-    .navbar-nav {
-      flex-direction: column;
-    }
-
-    /* Adjust padding and font sizes for smaller screens */
-    @media (max-width: 576px) {
-      .navbar-brand {
-        font-size: 1.2rem;
-      }
-
-      .btn-custom {
-        font-size: 0.9rem;
-      }
-
-      .card {
-        width: 100% !important; /* Make product cards full width on mobile */
-        margin: 0.5rem 0 !important;
-      }
-
-      .card-group {
-        padding-left: 0 !important; /* Remove extra padding on mobile */
-      }
-    }
-  </style>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
@@ -194,25 +158,8 @@ if (isset($_SESSION['cart'])) {
     }
     ?>
   </div>
+<script src="/js/script.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const cartDropdownContainer = document.getElementById('cartDropdownContainer');
-      const dropdownMenu = cartDropdownContainer.querySelector('.dropdown-menu');
-
-      // Show dropdown on hover
-      cartDropdownContainer.addEventListener('mouseenter', function () {
-        dropdownMenu.classList.add('show');
-        dropdownMenu.setAttribute('aria-expanded', 'true');
-      });
-
-      // Hide dropdown when mouse leaves
-      cartDropdownContainer.addEventListener('mouseleave', function () {
-        dropdownMenu.classList.remove('show');
-        dropdownMenu.setAttribute('aria-expanded', 'false');
-      });
-    });
-  </script>
 </body>
 
 </html>
