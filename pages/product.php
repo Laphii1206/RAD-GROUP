@@ -1,17 +1,9 @@
 <?php
-include '../auth/db_connect.php';
 session_start();
+include '../auth/db_connect.php';
+include '../cart/calculate_item.php';
 
-$sql = "SELECT * FROM product";
-$result = $conn->query($sql);
 
-// Calculate the total number of items in the cart
-$total_cart_items = 0;
-if (isset($_SESSION['cart'])) {
-  foreach ($_SESSION['cart'] as $item) {
-    $total_cart_items += $item['quantity'];
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -64,31 +56,32 @@ if (isset($_SESSION['cart'])) {
             <!-- Cart Name with Notification Badge -->
             <span class="btn btn-custom position-relative" id="cartDropdown">
               Shopping Cart
-              <?php if ($total_cart_items > 0): ?>
-                <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="transform: translate(-50%, -50%);">
-                  <?php echo $total_cart_items; ?>
+              <?php if (isset($_SESSION['total_cart_items']) && $_SESSION['total_cart_items'] > 0): ?>
+                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                  style="transform: translate(-50%, -50%);">
+                  <?php echo $_SESSION['total_cart_items']; ?>
                 </span>
               <?php endif; ?>
             </span>
             <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="cartDropdown" style="width: 300px;">
               <?php
               if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
-                  foreach ($_SESSION['cart'] as $item) {
-                      echo '<li class="dropdown-item">';
-                      echo '<div class="d-flex justify-content-between">';
-                      echo '<span>' . htmlspecialchars($item['product_name']) . '</span>';
-                      echo '<span>RM ' . htmlspecialchars($item['product_price']) . '</span>';
-                      echo '</div>';
-                      echo '<div class="d-flex justify-content-between">';
-                      echo '<small>Quantity: ' . htmlspecialchars($item['quantity']) . '</small>';
-                      echo '<small>Total: RM ' . htmlspecialchars($item['product_price'] * $item['quantity']) . '</small>';
-                      echo '</div>';
-                      echo '</li>';
-                  }
-                  echo '<li><hr class="dropdown-divider"></li>';
-                  echo '<li class="text-center"><a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a></li>';
+                foreach ($_SESSION['cart'] as $item) {
+                  echo '<li class="dropdown-item">';
+                  echo '<div class="d-flex justify-content-between">';
+                  echo '<span>' . htmlspecialchars($item['product_name']) . '</span>';
+                  echo '<span>RM ' . htmlspecialchars($item['product_price']) . '</span>';
+                  echo '</div>';
+                  echo '<div class="d-flex justify-content-between">';
+                  echo '<small>Quantity: ' . htmlspecialchars($item['quantity']) . '</small>';
+                  echo '<small>Total: RM ' . htmlspecialchars($item['product_price'] * $item['quantity']) . '</small>';
+                  echo '</div>';
+                  echo '</li>';
+                }
+                echo '<li><hr class="dropdown-divider"></li>';
+                echo '<li class="text-center"><a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a></li>';
               } else {
-                  echo '<li class="dropdown-item text-center">Your cart is empty.</li>';
+                echo '<li class="dropdown-item text-center">Your cart is empty.</li>';
               }
               ?>
             </ul>
@@ -127,20 +120,23 @@ if (isset($_SESSION['cart'])) {
     if ($result->num_rows > 0) {
       echo '<div class="card-group" style="padding-left: 5rem;">';
       while ($row = $result->fetch_assoc()) {
+        $imageData = base64_encode($row['product_image']);
+        $imageSrc = 'data:image/jpeg;base64,' . $imageData; 
+
         echo '<div class="card" style="width: 18rem; margin: 1rem;">';
-        echo '<img src="../images/' . $row['product_image'] . '" class="card-img-top img-thumbnail" alt="' . $row['product_name'] . '">';
+        echo '<img src="' . $imageSrc . '" class="card-img-top img-thumbnail" alt="' . htmlspecialchars($row['product_name']) . '">';
         echo '<div class="card-body">';
-        echo '<h4 class="card-title text-center">' . $row['product_name'] . '</h4>';
-        echo '<p class="card-text text-center">Weight: ' . $row['product_weight'] . 'g Price: RM' . $row['product_price'] . '</p>';
+        echo '<h4 class="card-title text-center">' . htmlspecialchars($row['product_name']) . '</h4>';
+        echo '<p class="card-text text-center">Weight: ' . htmlspecialchars($row['product_weight']) . 'g Price: RM' . htmlspecialchars($row['product_price']) . '</p>';
         echo '<div class="text-center">';
 
         // Check if the user is logged in
         if (isset($_SESSION['username'])) {
           // Show the Add to Cart button if logged in
           echo '<form action="../cart/add_to_cart.php" method="POST">';
-          echo "<input type='hidden' name='product_id' value='{$row['product_id']}'>";
-          echo "<input type='hidden' name='product_name' value='{$row['product_name']}'>";
-          echo "<input type='hidden' name='product_price' value='{$row['product_price']}'>";
+          echo "<input type='hidden' name='product_id' value='" . htmlspecialchars($row['product_id']) . "'>";
+          echo "<input type='hidden' name='product_name' value='" . htmlspecialchars($row['product_name']) . "'>";
+          echo "<input type='hidden' name='product_price' value='" . htmlspecialchars($row['product_price']) . "'>";
           echo '<button type="submit" class="btn btn-primary">Add to Cart</button>';
           echo '</form>';
         } else {
@@ -158,7 +154,7 @@ if (isset($_SESSION['cart'])) {
     }
     ?>
   </div>
-<script src="/js/script.js"></script>
+  <script src="../js/script.js"></script>
 
 </body>
 

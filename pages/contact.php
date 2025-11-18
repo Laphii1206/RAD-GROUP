@@ -1,6 +1,8 @@
 <?php
-include '../auth/db_connect.php';
 session_start();
+include '../auth/db_connect.php';
+include '../cart/calculate_item.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -24,10 +26,11 @@ session_start();
 
 
 <body>
-    <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
+  <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
     <div class="container-fluid">
       <a class="navbar-brand custom-nav-text" href="../index.php">WongKokSeng Wholesale</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -49,10 +52,46 @@ session_start();
           </li>
         </ul>
         <div class="d-flex">
+          <!-- Cart Dropdown -->
+          <div class="dropdown ms-3 position-relative" id="cartDropdownContainer">
+            <!-- Cart Name with Notification Badge -->
+            <span class="btn btn-custom position-relative" id="cartDropdown">
+              Shopping Cart
+              <?php if (isset($_SESSION['total_cart_items']) && $_SESSION['total_cart_items'] > 0): ?>
+                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                  style="transform: translate(-50%, -50%);">
+                  <?php echo $_SESSION['total_cart_items']; ?>
+                </span>
+              <?php endif; ?>
+            </span>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="cartDropdown" style="width: 300px;">
+              <?php
+              if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+                foreach ($_SESSION['cart'] as $item) {
+                  echo '<li class="dropdown-item">';
+                  echo '<div class="d-flex justify-content-between">';
+                  echo '<span>' . htmlspecialchars($item['product_name']) . '</span>';
+                  echo '<span>RM ' . htmlspecialchars($item['product_price']) . '</span>';
+                  echo '</div>';
+                  echo '<div class="d-flex justify-content-between">';
+                  echo '<small>Quantity: ' . htmlspecialchars($item['quantity']) . '</small>';
+                  echo '<small>Total: RM ' . htmlspecialchars($item['product_price'] * $item['quantity']) . '</small>';
+                  echo '</div>';
+                  echo '</li>';
+                }
+                echo '<li><hr class="dropdown-divider"></li>';
+                echo '<li class="text-center"><a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a></li>';
+              } else {
+                echo '<li class="dropdown-item text-center">Your cart is empty.</li>';
+              }
+              ?>
+            </ul>
+          </div>
           <?php if (isset($_SESSION['username'])): ?>
             <div class="dropdown">
-              <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                Welcome, <?php echo $_SESSION['username']; ?>
+              <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <?php echo $_SESSION['username']; ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="show_order.php">Show Order</a></li>
@@ -122,6 +161,8 @@ session_start();
       </ul>
     </div>
   </div>
+  <script src="../js/script.js"></script>
+
 </body>
 
 </html>
