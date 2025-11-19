@@ -3,6 +3,37 @@ session_start();
 include '../auth/db_connect.php';
 include '../cart/calculate_item.php';
 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $name = $_POST["name"];
+  $email = $_POST["email"];
+  $subject = $_POST["subject"];
+  $message = $_POST["message"];
+  if (!empty($name) && !empty($email) && !empty($subject) && !empty($message)) {
+    //sql statement
+    $sql = "INSERT INTO contactmessage (name,email,subject,message) VALUE('$name','$email','$subject','$message')";
+    //execute the sql statement
+    if (!mysqli_query($conn, $sql)) {
+      //show error messsage
+      $ErrorConnMessage = "Form submission failed Can't connect to database. Please try again.";
+      echo "<script type='text/javascript'>";
+      echo "alert('" . $ErrorConnMessage . "');";
+      echo "</script>";
+    } else {
+      //show sucess message
+      $SucessMessage = "Form submitted successfully!";
+      echo "<script type='text/javascript'>";
+      echo "alert('" . $SucessMessage . "');";
+      echo "</script>";
+    }
+  } else {
+    $ErrorMessage = "Form submission failed. Please fill in all required fields.";
+    echo "<script type='text/javascript'>";
+    echo "alert('" . $ErrorMessage . "');";
+    echo "</script>";
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -44,9 +75,9 @@ include '../cart/calculate_item.php';
           <li class="nav-item">
             <a class="nav-link custom-nav-text-active" href="contact.php">Contact</a>
           </li>
-       <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+          <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
             <li class="nav-item">
-              <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+              <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
             </li>
           <?php endif; ?>
         </ul>

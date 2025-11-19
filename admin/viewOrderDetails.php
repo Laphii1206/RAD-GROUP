@@ -62,11 +62,27 @@ $items_result = $stmt->get_result();
             </div>
             <div class="card-body">
                 <p><strong>Order ID:</strong> <?= htmlspecialchars($order['order_id']) ?></p>
-                <p><strong>User ID:</strong> <?= htmlspecialchars($order['user_id']) ?></p>
+                <p><strong>User ID:</strong> <?= htmlspecialchars($order['user_name']) ?></p>
                 <p><strong>Username:</strong> <?= htmlspecialchars($order['username']) ?></p>
                 <p><strong>Total Amount:</strong> RM<?= htmlspecialchars($order['total_amount']) ?></p>
-                <p><strong>Status:</strong> <?= htmlspecialchars($order['status']) ?></p>
                 <p><strong>Created At:</strong> <?= htmlspecialchars($order['created_at']) ?></p>
+
+                <!-- Order Status Dropdown -->
+                <form action="update_order_status.php" method="POST" class="mt-3">
+                    <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
+                    <div class="mb-3">
+                        <label for="status" class="form-label"><strong>Status:</strong></label>
+                        <select name="status" id="status" class="form-select">
+                            <option value="pending" <?= $order['status'] === 'pending' ? 'selected' : '' ?>>Pending
+                            </option>
+                            <option value="cancelled" <?= $order['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled
+                            </option>
+                            <option value="completed" <?= $order['status'] === 'completed' ? 'selected' : '' ?>>Completed
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Status</button>
+                </form>
             </div>
         </div>
 
@@ -104,12 +120,10 @@ $items_result = $stmt->get_result();
                 <?php endif; ?>
             </div>
         </div>
-
         <!-- Back Button -->
         <div class="text-center mt-4">
-            <a href="display_order.php" class="btn btn-primary">Back to Orders</a>
+            <a href="order_controller.php" class="btn btn-primary">Back to Orders</a>
         </div>
     </div>
 </body>
-
 </html>

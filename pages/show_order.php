@@ -5,8 +5,8 @@ include '../cart/calculate_item.php';
 
 // Ensure the user is logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
+  header("Location: ../auth/login.php");
+  exit();
 }
 
 // Fetch user orders from the database
@@ -56,7 +56,7 @@ $result = $stmt->get_result();
             <a class="nav-link custom-nav-text" href="preorder.php">Preorder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+            <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
           </li>
         </ul>
         <div class="d-flex">

@@ -21,10 +21,11 @@ session_start();
 
 
 <body>
-   <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
+  <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
     <div class="container-fluid">
       <a class="navbar-brand custom-nav-text" href="../index.php">WongKokSeng Wholesale</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -42,13 +43,14 @@ session_start();
             <a class="nav-link custom-nav-text-active" href="preorder.php">Preorder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+            <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
           </li>
         </ul>
         <div class="d-flex">
           <?php if (isset($_SESSION['username'])): ?>
             <div class="dropdown">
-              <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 Welcome, <?php echo $_SESSION['username']; ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

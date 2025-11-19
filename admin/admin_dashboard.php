@@ -51,6 +51,7 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -64,10 +65,13 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
                     <li class="nav-item">
-                        <a class="nav-link custom-nav-text" href="admin_dashboard.php">Dashboard</a>
+                        <a class="nav-link custom-nav-text-active" href="admin_dashboard.php">Manage Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link custom-nav-text" href="display_order.php">Show Orders</a>
+                        <a class="nav-link custom-nav-text" href="order_controller.php">Show Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-nav-text" href="message_controller.php">Show Contacts Message</a>
                     </li>
                 </ul>
             </div>

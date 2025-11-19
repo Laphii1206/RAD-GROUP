@@ -43,7 +43,7 @@ include '../cart/calculate_item.php';
           </li>
           <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
             <li class="nav-item">
-              <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+              <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
             </li>
           <?php endif; ?>
         </ul>
@@ -118,7 +118,7 @@ include '../cart/calculate_item.php';
       echo '<div class="card-group" style="padding-left: 5rem;">';
       while ($row = $result->fetch_assoc()) {
         $imageData = base64_encode($row['product_image']);
-        $imageSrc = 'data:image/jpeg;base64,' . $imageData; 
+        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
 
         echo '<div class="card" style="width: 18rem; margin: 1rem;">';
         echo '<img src="' . $imageSrc . '" class="card-img-top img-thumbnail" alt="' . htmlspecialchars($row['product_name']) . '">';

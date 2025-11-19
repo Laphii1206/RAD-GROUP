@@ -179,17 +179,7 @@ body {
   margin-top: 20%;
 }
 
-.form-outline .form-control:focus {
-  background-color: rgba(255, 255, 255, 0.1); /* Transparent white */
-  color: white; /* Keep the text color white */
-  border-color: rgba(255, 255, 255, 0.5); /* Slightly transparent border */
-  box-shadow: none; /* Remove the default focus glow */
-  transition: all 0.3s ease; /* Smooth transition */
-}
 
-.btn-outline-light {
-  text-transform: none; /* Remove uppercase transformation */
-}
 
 /* Responsive Styles */
 @media (max-width: 576px) {
