@@ -41,14 +41,11 @@ include '../cart/calculate_item.php';
           <li class="nav-item">
             <a class="nav-link custom-nav-text" href="contact.php">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="preorder.php">Preorder</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="../cart/cart.php">Cart</a>
+          <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+            <li class="nav-item">
+              <a class="nav-link custom-nav-text" href="adminPanel.php">Admin</a>
+            </li>
+          <?php endif; ?>
         </ul>
         <div class="d-flex">
           <!-- Cart Dropdown -->
