@@ -3,7 +3,6 @@ session_start();
 include '../auth/db_connect.php';
 include '../cart/calculate_item.php';
 
-
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +18,6 @@ include '../cart/calculate_item.php';
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
-  <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -130,11 +128,11 @@ include '../cart/calculate_item.php';
         // Check if the user is logged in
         if (isset($_SESSION['username'])) {
           // Show the Add to Cart button if logged in
-          echo '<form action="../cart/add_to_cart.php" method="POST">';
+          echo '<form class="add-to-cart-form" method="POST">';
           echo "<input type='hidden' name='product_id' value='" . htmlspecialchars($row['product_id']) . "'>";
           echo "<input type='hidden' name='product_name' value='" . htmlspecialchars($row['product_name']) . "'>";
           echo "<input type='hidden' name='product_price' value='" . htmlspecialchars($row['product_price']) . "'>";
-          echo '<button type="submit" class="btn btn-primary">Add to Cart</button>';
+          echo '<button type="button" class="btn btn-primary add-to-cart-btn">Add to Cart</button>';
           echo '</form>';
         } else {
           // Redirect to login page if not logged in

@@ -22,7 +22,7 @@ session_start();
                 echo htmlspecialchars($_SESSION['message']);
                 unset($_SESSION['message']);
             } else {
-                echo "Your order has been placed successfully!";
+                echo "Your order has been placed successfully! We will contact you soon.";
             }
             ?>
         </div>

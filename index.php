@@ -101,6 +101,51 @@ include 'cart/calculate_item.php';
       </div>
     </div>
   </header>
+
+
+  <div class="container main-layout">
+    <div class="welcome-box">
+      <h2>Welcome to WongKokSeng Wholesale!</h2>
+      <p>We make wholesale preordering simple, fast, and reliable. Explore our product, place orders in just a few
+        clicks, and enjoy a seamless experience.</p>
+      <p>Get start now to browse our latest items.</p>
+
+      <a class="welcome-btn" href="pages/product.php">Preorder Now</a>
+    </div>
+
+    <div class="right-section">
+      <div class="top-banner">
+        <img src="https://arisu.s-ul.eu/nySC9dQU" alt="Store Image">
+      </div>
+
+      <div class="products-container">
+
+
+        <?php
+        // Fetch 2 random products from the database
+        $sql = "SELECT * FROM product ORDER BY RAND() LIMIT 2";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            $imageData = base64_encode($row['product_image']);
+            $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+            ?>
+            <a href="pages/product_detail.php?id=<?= $row['product_id'] ?>" class="product-box">
+              <img src="<?= $imageSrc ?>" alt="Product Image">
+              <h3><?= htmlspecialchars($row['product_name']) ?></h3>
+              <p class="price">RM <?= htmlspecialchars($row['product_price']) ?> /
+                <?= htmlspecialchars($row['product_weight']) ?>g
+              </p>
+            </a>
+            <?php
+          }
+        }
+        ?>
+
+      </div>
+    </div>
+  </div>
   <script src="js/script.js"></script>
 
 </body>

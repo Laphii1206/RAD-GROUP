@@ -11,9 +11,10 @@ if (!isset($_SESSION['username'])) {
 
 // Fetch user orders from the database
 $username = $_SESSION['username'];
+$user_id = $_SESSION['user_id']; // Assuming user_id is stored in the session
 $sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $username);
+$stmt->bind_param("i", $user_id); // Use "i" for integer binding
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -127,14 +128,14 @@ $result = $stmt->get_result();
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapse<?php echo $row['order_id']; ?>" aria-expanded="false"
                 aria-controls="collapse<?php echo $row['order_id']; ?>">
-                Order #<?php echo $row['order_id']; ?> - <?php echo $row['order_date']; ?>
+                Order #<?php echo $row['order_id']; ?> - <?php echo $row['created_at']; ?>
               </button>
             </h2>
             <div id="collapse<?php echo $row['order_id']; ?>" class="accordion-collapse collapse"
               aria-labelledby="heading<?php echo $row['order_id']; ?>" data-bs-parent="#orderAccordion">
               <div class="accordion-body">
                 <p><strong>Order ID:</strong> <?php echo $row['order_id']; ?></p>
-                <p><strong>Date:</strong> <?php echo $row['order_date']; ?></p>
+                <p><strong>Date:</strong> <?php echo $row['created_at']; ?></p>
                 <p><strong>Total Amount:</strong> RM <?php echo $row['total_amount']; ?></p>
                 <p><strong>Status:</strong> <?php echo $row['status']; ?></p>
                 <hr>
@@ -142,7 +143,7 @@ $result = $stmt->get_result();
                 <ul>
                   <?php
                   $order_id = $row['order_id'];
-                  $item_sql = "SELECT * FROM order_items WHERE order_id = ?";
+                  $item_sql = "SELECT * FROM order_item WHERE order_id = ?";
                   $item_stmt = $conn->prepare($item_sql);
                   $item_stmt->bind_param("i", $order_id);
                   $item_stmt->execute();
