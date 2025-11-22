@@ -1,6 +1,13 @@
 <?php
 // filepath: c:\xampp\htdocs\RAD-GroupProject\cart\cart.php
 session_start();
+
+// Check if the cart is empty
+if (!isset($_SESSION['cart']) || count($_SESSION['cart']) === 0) {
+    // Redirect back to the product page
+    header("Location: ../pages/product.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
