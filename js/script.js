@@ -18,25 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
     addToCartButtons.forEach(button => {
-        // Remove any existing event listeners before adding a new one
-        button.removeEventListener('click', handleAddToCart);
-        button.addEventListener('click', handleAddToCart);
-    });
+        button.addEventListener('click', function () {
+            const form = this.closest('.add-to-cart-form');
+            const formData = new FormData(form);
 
-    // Function to handle Add to Cart
-    function handleAddToCart(event) {
-        const form = this.closest('.add-to-cart-form');
-        const formData = new FormData(form);
-
-        // Send the form data to the server using AJAX
-        fetch('../cart/add_to_cart.php', {
-            method: 'POST',
-            body: formData
-        })
+            // Send the form data to the server using AJAX
+            fetch('../cart/add_to_cart.php', {
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Item added to cart successfully!');
                     // Update the cart badge
                     const cartBadge = document.querySelector('#cartDropdownContainer .badge');
                     if (cartBadge) {
@@ -50,11 +43,45 @@ document.addEventListener('DOMContentLoaded', function () {
                         badge.textContent = data.total_cart_items;
                         cartDropdown.appendChild(badge);
                     }
+
+                    // Update the cart dropdown
+                    const cartDropdownMenu = document.querySelector('#cartDropdownContainer .dropdown-menu');
+                    cartDropdownMenu.innerHTML = ''; // Clear the current dropdown content
+
+                    // Add updated cart items to the dropdown
+                    data.cart_items.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'dropdown-item';
+                        listItem.innerHTML = `
+                            <div class="d-flex justify-content-between">
+                                <span>${item.product_name}</span>
+                                <span>RM ${item.product_price}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small>Quantity: ${item.quantity}</small>
+                                <small>Total: RM ${item.total_price}</small>
+                            </div>
+                        `;
+                        cartDropdownMenu.appendChild(listItem);
+                    });
+
+                    // Add a divider and "View Cart" button
+                    const divider = document.createElement('li');
+                    divider.innerHTML = '<hr class="dropdown-divider">';
+                    cartDropdownMenu.appendChild(divider);
+
+                    const viewCartButton = document.createElement('li');
+                    viewCartButton.className = 'text-center';
+                    viewCartButton.innerHTML = '<a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a>';
+                    cartDropdownMenu.appendChild(viewCartButton);
+
+                    alert('Item added to cart successfully!');
                 } else {
                     alert('Failed to add item to cart.');
                 }
             })
             .catch(error => console.error('Error:', error));
-    }
+        });
+    });
 });
 

@@ -115,7 +115,7 @@ include 'cart/calculate_item.php';
 
     <div class="right-section">
       <div class="top-banner">
-        <img src="https://arisu.s-ul.eu/nySC9dQU" alt="Store Image">
+        <img src="https://arisu.s-ul.eu/j9jTV2gK" alt="Store Image">
       </div>
 
       <div class="products-container">

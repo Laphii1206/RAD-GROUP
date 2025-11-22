@@ -180,13 +180,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="contact-info">
       <ul style="text-align: center;">
         <li>
-          <p>Email: Wong@gmail.com </p>
+          <p>Email: clasadlife@gmail.com </p>
         </li>
         <li>
-          <p>Phone Number: 01499899898</p>
+          <p>Phone Number: 012-3983386</p>
         </li>
         <li>
-          <p>Address: 1, Jalan PJU 1a/48, Pusat Perdagangan Dana 1, 47301 Petaling Jaya, Selangor</p>
+          <p>Address:Gerai H-27, Pasar Borong Jalan Selayang Baru, Batu 8, Batu Caves, 68100 Batu Caves, Selangor, Malaysia</p>
         </li>
       </ul>
     </div>

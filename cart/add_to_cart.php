@@ -31,10 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update the total cart items
     $_SESSION['total_cart_items'] = array_sum(array_column($_SESSION['cart'], 'quantity'));
 
+    // Prepare the cart items for the response
+    $cart_items = [];
+    foreach ($_SESSION['cart'] as $item) {
+        $cart_items[] = [
+            'product_name' => $item['product_name'],
+            'product_price' => $item['product_price'],
+            'quantity' => $item['quantity'],
+            'total_price' => $item['product_price'] * $item['quantity']
+        ];
+    }
+
     // Return a JSON response
     echo json_encode([
         'success' => true,
-        'total_cart_items' => $_SESSION['total_cart_items']
+        'total_cart_items' => $_SESSION['total_cart_items'],
+        'cart_items' => $cart_items
     ]);
     exit();
 } else {
