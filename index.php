@@ -131,7 +131,7 @@ include 'cart/calculate_item.php';
             $imageData = base64_encode($row['product_image']);
             $imageSrc = 'data:image/jpeg;base64,' . $imageData;
             ?>
-            <a href="pages/product_detail.php?id=<?= $row['product_id'] ?>" class="product-box">
+            <a href="pages/product.php" class="product-box">
               <img src="<?= $imageSrc ?>" alt="Product Image">
               <h3><?= htmlspecialchars($row['product_name']) ?></h3>
               <p class="price">RM <?= htmlspecialchars($row['product_price']) ?> /
