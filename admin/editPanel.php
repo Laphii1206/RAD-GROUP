@@ -39,7 +39,7 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
         $stmt->bind_param("ssdsi", $productName, $productWeight, $productPrice, $imageData, $productId);
 
         if ($stmt->execute()) {
-            header("Location: adminPanel.php");
+            header("Location: admin_dashboard.php");
             exit();
         } else {
             echo "Error updating product: " . $conn->error;
