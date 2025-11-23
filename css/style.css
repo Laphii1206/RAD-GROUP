@@ -50,8 +50,8 @@ body {
 }
 
 #cartDropdownContainer .badge {
-  top: 15%; /* Adjust this value to move the badge lower */
-  left: 95%; /* Adjust this value to move the badge horizontally */
+  top: 15%;
+  left: 95%;
   transform: translate(-50%, -50%);
 }
 
@@ -96,9 +96,9 @@ body {
 .contact-container {
   width: 100%;
   height: auto;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  background: url('https://arisu.s-ul.eu/6Y7pIu2k');
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  background: url('../images/warehouse.jpg');
   background-size: cover;
 }
 
@@ -114,20 +114,17 @@ body {
   padding: 50px;
   display: flex;
   width: 100%;
-  justify-items: center;
-  height: 800px;
-  position: relative;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .contact-form {
   border-radius: 20px;
   background-color: #f2f2f2;
   padding: 20px;
-  width: 30%;
+  width: 40%;
   font-size: 30px;
-  position: absolute;
-  left: 50%;
-  top: 9%;
+  min-width: 20%;
 }
 
 .contact-container ul {
@@ -160,24 +157,135 @@ body {
 
 .contact-form-welcome-message-box {
   color: white;
-  margin-right: 20px;
   background-color: rgb(48, 19, 19);
   border: black 2px solid;
   padding: 20px;
   border-radius: 10px;
   width: 40%;
-  height: 700px;
-  position: absolute;
-  left: 20%;
+  min-width: 20%;
 }
 
 .contact-form-welcome-message {
   text-align: left;
   font-size: 20px;
-  margin-bottom: 20px;
-  width: 60%;
+  width: 100%;
   margin-top: 20%;
 }
+
+/* Welcome Box */
+.welcome-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.welcome-box {
+    flex: 1 1 300px;
+    padding: 30px;
+    background-color: #c1d2ec;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.welcome-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.welcome-box p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+
+.top-banner img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.product-box {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-box img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-box h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 16px;
+    color: #337ab7;
+    font-weight: bold;
+}
+
+.welcome-btn {
+    display: block;
+    width: 180px;
+    padding: 12px 30px;
+    margin-top: 30px;
+    text-align: center;
+
+    background-color: #337ab7;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.welcome-btn:hover {
+    background-color: #285f8f;
+}
+
+.main-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.right-section {
+    width: 70%;
+}
+
+.top-banner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 20px;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 576px) {
@@ -190,108 +298,22 @@ body {
   }
 
   .card {
-    width: 100% !important; /* Make product cards full width on mobile */
+    width: 100% !important;
     margin: 0.5rem 0 !important;
   }
 
   .card-group {
-    padding-left: 0 !important; /* Remove extra padding on mobile */
+    padding-left: 0 !important;
   }
-}
 
-/* Welcome Box */
-.welcome-box {
-  width: 30%; 
-  padding: 40px;
-  background-color: #c1d2ec;
-  border-radius: 10px;
-}
+  .contact-form,
+  .contact-form-welcome-message-box {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 100%;
+  }
 
-.welcome-box h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.welcome-box p {
-  font-size: 16px;
-  margin-bottom: 25px;
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-}
-
-/* Top Banner */
-.top-banner img {
-  width: 100%;
-  height: 300px;    
-  object-fit: cover;
-  border-radius: 10px;
-  display: block;
-  margin-bottom: 20px;
-}
-
-/* Products Container */
-.products-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.product-box {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-box img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.product-box h3 {
-  font-size: 18px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.price {
-  font-size: 16px;
-  color: #337ab7;
-  font-weight: bold;
-}
-
-.welcome-btn {
-  display: block;
-  width: 180px;
-  padding: 12px 30px;
-  margin-top: 30px;
-  text-align: center;
-  background-color: #337ab7;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.welcome-btn:hover {
-  background-color: #285f8f;
-}
-
-/* Main Layout */
-.main-layout {
-  display: flex;
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.right-section {
-  width: 70%;
+  .contact-form-welcome-message {
+    margin-top: 0;
+  }
 }

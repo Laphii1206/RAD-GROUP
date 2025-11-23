@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (cartBadge) {
                         cartBadge.textContent = data.total_cart_items;
                     } else {
-                        // If the badge doesn't exist, create it
                         const cartDropdown = document.querySelector('#cartDropdown');
                         const badge = document.createElement('span');
                         badge.className = 'position-absolute translate-middle badge rounded-pill bg-danger';
@@ -44,44 +43,56 @@ document.addEventListener('DOMContentLoaded', function () {
                         cartDropdown.appendChild(badge);
                     }
 
-                    // Update the cart dropdown
-                    const cartDropdownMenu = document.querySelector('#cartDropdownContainer .dropdown-menu');
-                    cartDropdownMenu.innerHTML = ''; // Clear the current dropdown content
+                    // Update the dropdown content dynamically
+                    updateCartDropdown(data.cart_items);
 
-                    // Add updated cart items to the dropdown
-                    data.cart_items.forEach(item => {
-                        const listItem = document.createElement('li');
-                        listItem.className = 'dropdown-item';
-                        listItem.innerHTML = `
-                            <div class="d-flex justify-content-between">
-                                <span>${item.product_name}</span>
-                                <span>RM ${item.product_price}</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <small>Quantity: ${item.quantity}</small>
-                                <small>Total: RM ${item.total_price}</small>
-                            </div>
-                        `;
-                        cartDropdownMenu.appendChild(listItem);
-                    });
-
-                    // Add a divider and "View Cart" button
-                    const divider = document.createElement('li');
-                    divider.innerHTML = '<hr class="dropdown-divider">';
-                    cartDropdownMenu.appendChild(divider);
-
-                    const viewCartButton = document.createElement('li');
-                    viewCartButton.className = 'text-center';
-                    viewCartButton.innerHTML = '<a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a>';
-                    cartDropdownMenu.appendChild(viewCartButton);
-
+                    // Show success message
                     alert('Item added to cart successfully!');
                 } else {
-                    alert('Failed to add item to cart.');
+                    alert(data.message || 'Failed to add item to cart.');
                 }
             })
             .catch(error => console.error('Error:', error));
         });
     });
+
+    // Function to update the cart dropdown content
+    function updateCartDropdown(cartItems) {
+        const dropdownMenu = document.querySelector('#cartDropdownContainer .dropdown-menu');
+        dropdownMenu.innerHTML = ''; // Clear the current dropdown content
+
+        if (cartItems.length > 0) {
+            cartItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'dropdown-item';
+                listItem.innerHTML = `
+                    <div class="d-flex justify-content-between">
+                        <span>${item.product_name}</span>
+                        <span>RM ${item.product_price}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <small>Quantity: ${item.quantity}</small>
+                        <small>Total: RM ${item.total_price}</small>
+                    </div>
+                `;
+                dropdownMenu.appendChild(listItem);
+            });
+
+            // Add a divider and "View Cart" button
+            const divider = document.createElement('li');
+            divider.innerHTML = '<hr class="dropdown-divider">';
+            dropdownMenu.appendChild(divider);
+
+            const viewCartButton = document.createElement('li');
+            viewCartButton.className = 'text-center';
+            viewCartButton.innerHTML = '<a href="../cart/cart.php" class="btn btn-primary btn-sm">View Cart</a>';
+            dropdownMenu.appendChild(viewCartButton);
+        } else {
+            const emptyMessage = document.createElement('li');
+            emptyMessage.className = 'dropdown-item text-center';
+            emptyMessage.textContent = 'Your cart is empty.';
+            dropdownMenu.appendChild(emptyMessage);
+        }
+    }
 });
 

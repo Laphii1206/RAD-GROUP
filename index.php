@@ -103,7 +103,7 @@ include 'cart/calculate_item.php';
   </header>
 
 
-  <div class="container main-layout">
+  <div class="welcome-container main-layout">
     <div class="welcome-box">
       <h2>Welcome to WongKokSeng Wholesale!</h2>
       <p>We make wholesale preordering simple, fast, and reliable. Explore our product, place orders in just a few

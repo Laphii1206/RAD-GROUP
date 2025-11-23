@@ -1,15 +1,21 @@
 <?php
-// filepath: c:\xampp\htdocs\RAD-GroupProject\pages\add_to_cart.php
+// filepath: c:\xampp\htdocs\RAD-GROUP\cart\add_to_cart.php
 session_start();
-include '../auth/db_connect.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
+    // Validate incoming data
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
+    $product_name = isset($_POST['product_name']) ? trim($_POST['product_name']) : null;
+    $product_price = isset($_POST['product_price']) ? floatval($_POST['product_price']) : null;
 
-    // Check if the cart exists in the session
+    // Ensure all required fields are provided
+    if (!$product_id || !$product_name || !$product_price) {
+        echo json_encode(['success' => false, 'message' => 'Invalid product data.']);
+        exit();
+    }
+
+    // Initialize the cart if it doesn't exist
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
@@ -50,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     exit();
 } else {
-    echo json_encode(['success' => false]);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
     exit();
 }
 ?>

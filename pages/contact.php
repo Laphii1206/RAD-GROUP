@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
       <div class="contact-form">
-        <form action="submit_form.php" method="POST">
+        <form action="contact.php" method="POST">
           <div>
             <label>Name:</label>
             <input type="text" id="name" name="name" required>

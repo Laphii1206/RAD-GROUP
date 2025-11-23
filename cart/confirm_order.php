@@ -9,6 +9,14 @@ $user_id = $_SESSION['user_id'];
 $preorder_date = $_POST['preorder_date'];
 $pickup_time = $_POST['pickup_time'];
 
+// Validate that the preorder date is not before today
+$current_date = date('Y-m-d'); // Get today's date in `YYYY-MM-DD` format
+if ($preorder_date < $current_date) {
+    $_SESSION['message'] = "Preorder date cannot be before today.";
+    header("Location: checkout.php");
+    exit();
+}
+
 // Calculate the total amount
 $total_amount = 0;
 if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {

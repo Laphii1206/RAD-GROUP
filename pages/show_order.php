@@ -35,7 +35,7 @@ $result = $stmt->get_result();
 </head>
 
 <body>
-  <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
+ <header class="navbar navbar-expand-lg sticky-top custom-nav-bg px-5">
     <div class="container-fluid">
       <a class="navbar-brand custom-nav-text" href="../index.php">WongKokSeng Wholesale</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -51,14 +51,13 @@ $result = $stmt->get_result();
             <a class="nav-link custom-nav-text" href="product.php">Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="contact.php">Contact</a>
+            <a class="nav-link custom-nav-text-active" href="contact.php">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="preorder.php">Preorder</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
-          </li>
+          <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+            <li class="nav-item">
+              <a class="nav-link custom-nav-text" href="../admin/admin_dashboard.php">Admin</a>
+            </li>
+          <?php endif; ?>
         </ul>
         <div class="d-flex">
           <!-- Cart Dropdown -->
@@ -96,8 +95,6 @@ $result = $stmt->get_result();
               ?>
             </ul>
           </div>
-
-          <!-- Profile Dropdown -->
           <?php if (isset($_SESSION['username'])): ?>
             <div class="dropdown">
               <button class="btn btn-custom dropdown-menu-dark dropdown-toggle" type="button" id="userDropdown"
@@ -117,7 +114,7 @@ $result = $stmt->get_result();
       </div>
     </div>
   </header>
-
+  
   <div class="container mt-5">
     <h1 class="text-center">Order History</h1>
     <div class="accordion mt-4" id="orderAccordion">
