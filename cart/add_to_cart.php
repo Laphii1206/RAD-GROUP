@@ -2,15 +2,15 @@
 // filepath: c:\xampp\htdocs\RAD-GROUP\cart\add_to_cart.php
 session_start();
 
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate incoming data
     $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
     $product_name = isset($_POST['product_name']) ? trim($_POST['product_name']) : null;
     $product_price = isset($_POST['product_price']) ? floatval($_POST['product_price']) : null;
+    $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
     // Ensure all required fields are provided
-    if (!$product_id || !$product_name || !$product_price) {
+    if (!$product_id || !$product_name || !$product_price || $quantity < 1) {
         echo json_encode(['success' => false, 'message' => 'Invalid product data.']);
         exit();
     }
@@ -22,15 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if the product is already in the cart
     if (isset($_SESSION['cart'][$product_id])) {
-        // Increment the quantity if the product already exists
-        $_SESSION['cart'][$product_id]['quantity'] += 1;
+        $_SESSION['cart'][$product_id]['quantity'] += $quantity;
     } else {
-        // Add the product to the cart
         $_SESSION['cart'][$product_id] = [
             'product_id' => $product_id,
             'product_name' => $product_name,
             'product_price' => $product_price,
-            'quantity' => 1
+            'quantity' => $quantity
         ];
     }
 

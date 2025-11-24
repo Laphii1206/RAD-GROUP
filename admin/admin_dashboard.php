@@ -77,6 +77,7 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
             </div>
         </div>
     </header>
+
     <div class="container mt-5">
         <h1>Manage Products</h1>
 
@@ -140,6 +141,7 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
             </tbody>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

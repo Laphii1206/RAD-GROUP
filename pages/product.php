@@ -48,17 +48,16 @@ include '../cart/calculate_item.php';
         <div class="d-flex">
           <!-- Cart Dropdown -->
           <div class="dropdown ms-3 position-relative" id="cartDropdownContainer">
-            <!-- Cart Name with Notification Badge -->
-            <span class="btn btn-custom position-relative" id="cartDropdown">
+            <button class="btn btn-custom dropdown-toggle" type="button" id="cartDropdown" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Shopping Cart
               <?php if (isset($_SESSION['total_cart_items']) && $_SESSION['total_cart_items'] > 0): ?>
-                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                  style="transform: translate(-50%, -50%);">
+                <span class="position-absolute translate-middle badge rounded-pill bg-danger">
                   <?php echo $_SESSION['total_cart_items']; ?>
                 </span>
               <?php endif; ?>
-            </span>
-            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="cartDropdown" style="width: 300px;">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cartDropdown">
               <?php
               if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
                 foreach ($_SESSION['cart'] as $item) {
@@ -112,6 +111,9 @@ include '../cart/calculate_item.php';
 
   <div class="container">
     <?php
+    $sql = "SELECT * FROM product"; // Fetch products from the database
+    $result = $conn->query($sql);
+
     if ($result->num_rows > 0) {
       echo '<div class="card-group" style="padding-left: 5rem;">';
       while ($row = $result->fetch_assoc()) {
@@ -127,11 +129,16 @@ include '../cart/calculate_item.php';
 
         // Check if the user is logged in
         if (isset($_SESSION['username'])) {
-          // Show the Add to Cart button if logged in
+          // Show the Add to Cart button with quantity selector if logged in
           echo '<form class="add-to-cart-form" method="POST">';
           echo "<input type='hidden' name='product_id' value='" . htmlspecialchars($row['product_id']) . "'>";
           echo "<input type='hidden' name='product_name' value='" . htmlspecialchars($row['product_name']) . "'>";
           echo "<input type='hidden' name='product_price' value='" . htmlspecialchars($row['product_price']) . "'>";
+          echo '<div class="d-flex justify-content-center align-items-center mb-3">';
+          echo '<button type="button" class="btn btn-secondary btn-sm quantity-decrease">-</button>';
+          echo '<input type="number" name="quantity" value="1" min="1" class="form-control text-center mx-2 quantity-input" style="width: 60px;">';
+          echo '<button type="button" class="btn btn-secondary btn-sm quantity-increase">+</button>';
+          echo '</div>';
           echo '<button type="button" class="btn btn-primary add-to-cart-btn">Add to Cart</button>';
           echo '</form>';
         } else {
